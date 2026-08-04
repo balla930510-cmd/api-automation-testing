@@ -1,7 +1,5 @@
 # API Automation & Performance Testing
 
-# API Automation & Performance Testing
-
 ![API Tests CI](https://github.com/balla930510-cmd/api-automation-testing/actions/workflows/ci.yml/badge.svg)
 
 This project demonstrates REST API automation testing and performance testing using Python. It covers functional validation with Pytest and load testing with Locust, showcasing a complete API testing workflow.
@@ -178,7 +176,9 @@ The API automation suite currently covers the following operations:
 | Passed | 7 |
 | Failed | 0 |
 | Success Rate | 100% |
-| Execution Time | 5 sec |
+| Execution Time | ~7.5 sec |
+
+> Test execution time may vary depending on API response time and network conditions.
 
 ## 📄 HTML Test Report
 
