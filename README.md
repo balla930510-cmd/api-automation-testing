@@ -44,6 +44,8 @@ This project demonstrates REST API automation testing and performance testing us
 
 ## 📂 Project Structure
 
+## 📂 Project Structure
+
 ```text
 API_Testing/
 │
@@ -68,7 +70,14 @@ API_Testing/
 │   └── test_parameter.py
 │
 ├── reports/
-│   └── screenshot/
+│   ├── screenshot/
+│   │   └── pytest_html_report.png
+│   └── ...
+│
+├── screenshots/
+│   ├── locust_failure_rate.png
+│   ├── locust_response_time.png
+│   └── locust_rps.png
 │
 ├── locust-performance-testing/
 │   ├── locustfile.py
@@ -80,6 +89,7 @@ API_Testing/
 ├── requirements.txt
 └── README.md
 ```
+
 Generated reports and temporary files are excluded from source control through .gitignore.
 
 ## 🏗 Architecture
