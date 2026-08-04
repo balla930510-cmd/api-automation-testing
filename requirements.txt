@@ -1,4 +1,5 @@
-pytest
 requests
-selenium
-webdriver-manager
+pytest
+pytest-html
+locust
+allure-pytest
