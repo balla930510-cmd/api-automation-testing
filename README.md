@@ -44,7 +44,6 @@ This project demonstrates REST API automation testing and performance testing us
 
 ## 📂 Project Structure
 
-## 📂 Project Structure
 
 ```text
 API_Testing/
@@ -262,19 +261,19 @@ pytest --html=reports/report.html --self-contained-html
 
 The generated HTML report is uploaded to GitHub Actions as a workflow artifact.
 ```text
- GitHub Actions
-       │
-       ▼
-     pytest
-       │
-       ▼
-reports/report.html
-       │
-       ▼
-Upload Artifact
-       │
-       ▼
-api-test-report
+           GitHub Actions
+                 │
+                 ▼
+               pytest
+                 │
+                 ▼
+         reports/report.html
+                 │
+                 ▼
+           Upload Artifact
+                 │
+                 ▼
+           api-test-report
 ```
 The artifact allows test results to be inspected after the CI workflow completes without committing generated reports to the repository.
 
@@ -393,9 +392,11 @@ pytest --html=reports/report.html --self-contained-html
 | HTML Report |　pytest-html | pytest-html |
 | Performance |	Locust | — |
 | CI/CD |— | GitHub Actions |
+---
+
 
 ## 👨‍💻 Author
-```
+
 Bai, Chen-Liang
 
 Department of Mathematics
