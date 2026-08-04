@@ -1,5 +1,9 @@
 # API Automation & Performance Testing
 
+# API Automation & Performance Testing
+
+![API Tests CI](https://github.com/balla930510-cmd/api-automation-testing/actions/workflows/ci.yml/badge.svg)
+
 This project demonstrates REST API automation testing and performance testing using Python. It covers functional validation with Pytest and load testing with Locust, showcasing a complete API testing workflow.
 
 ## Features
@@ -10,21 +14,34 @@ This project demonstrates REST API automation testing and performance testing us
 
 ✔ Modular API Client
 
+✔ Pytest Fixtures
+
 ✔ Test Data Management
 
-✔ HTML Report Generation
+✔ HTTP Status Code Validation
+
+✔ Response Data Validation
+
+✔ HTML Test Report with pytest-html
 
 ✔ Performance Testing with Locust
 
-✔ GitHub Ready
+✔ GitHub Actions CI
+
+✔ HTML Test Report Artifact
+
+✔ Git-based Version Control
 
 ## 🛠 Technologies
 | Category | Technology |
 |----------|------------|
 | Language | Python 3 |
 | Testing | Requests |
+| Test Framework | Pytest |
+| Test Architecture | API Client / Fixtures | 
+| Test Reporting | pytest-html |
 | Performance | Locust |
-| Reporting | Pytest-html |
+| CI/CD | GitHub Actions |
 | Version Control | Git,GitHub |
 
 ## 📂 Project Structure
@@ -32,65 +49,118 @@ This project demonstrates REST API automation testing and performance testing us
 ```text
 API_Testing/
 │
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
 ├── api/
+│   └── api_client.py
+│
 ├── config/
+│   └── config.py
+│
 ├── data/
+│   └── test_data.py
+│
 ├── tests/
+│   ├── test_get_user.py
+│   ├── test_create_user.py
+│   ├── test_update_user.py
+│   ├── test_delete_user.py
+│   └── test_parameter.py
+│
 ├── reports/
+│   └── screenshot/
+│
 ├── locust-performance-testing/
 │   ├── locustfile.py
 │   ├── requirements.txt
 │   └── README.md
+│
 ├── conftest.py
 ├── pytest.ini
 ├── requirements.txt
 └── README.md
 ```
+Generated reports and temporary files are excluded from source control through .gitignore.
 
 ## 🏗 Architecture
+###  API Automation
 ```text
-Pytest Test Cases
-      │
-      ▼
-API Client (Requests)
-      │
-      ▼
-ReqRes REST API
-      │
-      ▼
-Response Validation
-      │
-      ▼
-Assertion
-      │
-      ▼
-HTML Report
-      │
-      ▼
-Performance Report (Locust)
+                 Pytest Test Cases
+                         │
+                         ▼
+                API Client Requests
+                         │
+                         ▼
+                      REST API
+                         │
+                         ▼
+                Response Validation
+                         │
+                         ▼
+                     Assertions
+                         │
+                         ▼
+                     pytest-html
+                         │
+                         ▼
+                     HTML Report
+```
+### Performance Testing
+```text
+                 Locust Test Script
+                         │
+                         ▼
+                      REST API
+                         │
+                         ▼
+                Concurrent Requests
+                         │
+                         ▼
+              Performance Measurements
+                         │
+              ┌──────────┼──────────┐
+              ▼          ▼          ▼
+             RPS    Response Time   Failures
 ```
 
----
-
-## 🔧 Installation
-
-```bash
-git clone https://github.com/balla930510-cmd/api-automation-testing.git
-
-cd API_Testing
-
-pip install -r requirements.txt
+### CI/CD Pipeline
+```text
+Push / Pull Request
+        │
+        ▼
+  GitHub Actions
+        │
+        ▼
+   Setup Python
+        │
+        ▼
+Install Dependencies
+        │
+        ▼
+    Run Pytest
+        │
+        ▼
+Generate HTML Report
+        │
+        ▼
+Upload Report Artifact
 ```
 ## 🚀 API Automation Testing
-
 ### Test Coverage
 
-- GET
-- POST
-- PUT
-- DELETE
+The API automation suite currently covers the following operations:
 
-## API Endpoints
+| Method | Test Coverage |
+| ------ | ------------- |
+| GET |	Retrieve user data |
+| POST | Create a new user |
+| PUT |	Update user data |
+| DELETE | Delete user |
+
+---
+###  API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -98,22 +168,8 @@ pip install -r requirements.txt
 | POST | /api/users | Create a new user |
 | PUT | /api/users/2 | Update user |
 | DELETE | /api/users/2 | Delete user |
+---
 
-
-### Framework
-
-- Requests
-- Pytest
-- Pytest Fixture
-- HTML Report
-
-### Run Tests
-
-```bash
-pytest
-pytest --html=reports/report.html
-
-```
 ## ✅ Test Result Summary
 
 | Item | Result |
@@ -126,19 +182,102 @@ pytest --html=reports/report.html
 
 ## 📄 HTML Test Report
 
-The automated API test results are generated using **pytest-html**.
+The project uses pytest-html to generate a self-contained HTML test report.
 
-### Summary
+### Run Tests
 
-- Total Tests: 7
-- Passed: 7
-- Failed: 0
-- Errors: 0
+```bash
+pytest--html=reports/report.html --self-contained-html
+
+```
+The generated report contains:
+
+- Total test cases
+- Passed tests
+- Failed tests
+- Error information
+- Test execution duration
+- Test case details
 
 ### Report Screenshot
 
 ![Pytest HTML Report](reports/screenshot/pytest_html_report.png)
+---
+## 🔄 Continuous Integration
 
+The project uses GitHub Actions to automatically execute the API test suite on every push and pull request targeting the main branch.
+
+### CI Workflow
+```text
+       Push / Pull Request
+                │
+                ▼
+       Checkout Repository
+                │
+                ▼
+        Setup Python 3.12
+                │
+                ▼
+       Install Dependencies
+                │
+                ▼
+     Create Reports Directory
+                │
+                ▼
+            Run Pytest
+                |
+        ┌───────────────┐
+        ▼               ▼
+    Test Pass       Test Fail
+        │               │
+        └───────┬───────┘
+                ▼
+        Generate HTML Report
+                │
+                ▼
+        Upload Report Artifact
+```
+### Workflow file:
+```bash
+.github/workflows/ci.yml
+```
+### The CI workflow uses:
+```bash
+pytest --html=reports/report.html --self-contained-html
+```
+### to generate the HTML report.
+--- 
+
+## 📦 CI Test Report Artifact
+
+The generated HTML report is uploaded to GitHub Actions as a workflow artifact.
+```text
+ GitHub Actions
+       │
+       ▼
+     pytest
+       │
+       ▼
+reports/report.html
+       │
+       ▼
+Upload Artifact
+       │
+       ▼
+api-test-report
+```
+The artifact allows test results to be inspected after the CI workflow completes without committing generated reports to the repository.
+
+###  Artifact
+```text
+api-test-report
+└── report.html
+```
+The report can be downloaded from:
+```
+GitHub → Actions → API Automation Tests → Artifacts
+```
+The HTML report is uploaded with if: always() so that the report remains available even when one or more API tests fail.
 
 ## ⚡ Performance Testing (Locust)
 
@@ -153,15 +292,27 @@ https://reqres.in
 - GET /api/users?page=2
 - POST /api/users
 
-### Run Locust
+Performance metrics include:
 
+- Requests Per Second (RPS)
+- Response Time
+- Failure Rate
+- Concurrent User Load
+###  Run Locust
+Navigate to the performance testing directory:
 ```bash
 cd locust-performance-testing
+```
+Install dependencies:
+```bash
 pip install -r requirements.txt
+```
+Start Locust:
+```bash
 python -m locust -f locustfile.py
 ```
 
-Open your browser:
+Open the Locust Web UI:
 
 ```
 http://localhost:8089
@@ -192,21 +343,55 @@ Configuration
 
 ![Locust Failure Report](./screenshots/locust_failure_rate.png)
 
-Failure Rate:
-Most requests completed successfully.
-Some failures were caused by authentication (401 Unauthorized) or temporary network connectivity issues during stress testing.
+Performance results may vary depending on external API behavior, network conditions, and test load.
 
 ---
+## 🔧 Installation
+1. Clone the repository
+```bash
+git clone https://github.com/balla930510-cmd/api-automation-testing.git
+```
+2. Navigate to the project
+```bash
+cd API_Testing
+```
+3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+## ▶️ Run Tests
+
+Run the complete API test suite:
+```bash
+pytest
+```
+Run tests with verbose output:
+```bash
+pytest -v
+```
+Generate HTML test report:
+```bash
+pytest --html=reports/report.html --self-contained-html
+```
+## 💻 Test Environment
+| Item | Local | CI |
+| ---- | ----- | -- |
+| OS | Windows 11 | Ubuntu |
+| Python | 3.13.9 | 3.12 |
+| Test Framework | Pytest |	Pytest |
+| API Library |	Requests |	Requests |
+| HTML Report |　pytest-html | pytest-html |
+| Performance |	Locust | — |
+| CI/CD |— | GitHub Actions |
 
 ## 👨‍💻 Author
-
+```
 Bai, Chen-Liang
 
 Department of Mathematics
 Information Mathematics Program
 
 Fu Jen Catholic University
-
 GitHub:
 https://github.com/balla930510-cmd/api-automation-testing
 
