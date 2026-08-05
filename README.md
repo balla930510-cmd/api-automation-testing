@@ -181,7 +181,7 @@ Upload Report Artifact
 ```
 
 
-```
+
 ## 🚀 API Automation Testing
 ### Test Coverage
 
@@ -193,8 +193,9 @@ The API automation suite currently covers the following operations:
 | POST | Create a new user |
 | PUT |	Update user data |
 | DELETE | Delete user |
-
 ---
+
+
 ###  API Endpoints
 
 | Method | Endpoint | Description |
@@ -225,7 +226,6 @@ The project uses pytest-html to generate a self-contained HTML test report.
 
 ```bash
 pytest --html=reports/report.html --self-contained-html
-
 ```
 The generated report contains:
 
@@ -250,7 +250,6 @@ The CI pipeline is defined in:
 
 ```text
 .github/workflows/ci.yml
-
 ```
 The workflow automatically:
 
