@@ -1,6 +1,7 @@
 # API Automation & Performance Testing
 
 ![API Tests CI](https://github.com/balla930510-cmd/api-automation-testing/actions/workflows/ci.yml/badge.svg)
+![API Release](https://github.com/balla930510-cmd/api-automation-testing/actions/workflows/release.yml/badge.svg)
 
 This project demonstrates REST API automation testing and performance testing using Python. It covers functional validation with Pytest and load testing with Locust, showcasing a complete API testing workflow.
 
@@ -26,7 +27,11 @@ This project demonstrates REST API automation testing and performance testing us
 
 ✔ GitHub Actions CI
 
-✔ HTML Test Report Artifact
+✔ HTML Test Report 
+
+✔ Automated GitHub Release
+
+✔ CI/CD Workflow
 
 ✔ Git-based Version Control
 
@@ -50,8 +55,8 @@ API_Testing/
 │
 ├── .github/
 │   └── workflows/
-│       └── ci.yml
-│
+│       ├── ci.yml
+│       └── release.yml
 ├── api/
 │   └── api_client.py
 │
@@ -133,26 +138,49 @@ Generated reports and temporary files are excluded from source control through .
 ```
 
 ### CI/CD Pipeline
-```text
-Push / Pull Request
-        │
-        ▼
-  GitHub Actions
-        │
-        ▼
-   Setup Python
-        │
-        ▼
-Install Dependencies
-        │
-        ▼
-    Run Pytest
-        │
-        ▼
-Generate HTML Report
+```text                            
+            Push / Pull Request          
+                    │
+                    ▼
+             GitHub Actions CI
+                    │
+                    ▼
+               Setup Python
+                    │
+                    ▼
+           Install Dependencies
+                    │
+                    ▼
+                Run Pytest
+                    │
+        ┌───────────────────────┐
+        ▼                       ▼
+    Test Pass               Test Fail
+        │                       │
+        ▼                       ▼
+Generate HTML Report       Stop Pipeline
         │
         ▼
 Upload Report Artifact
+
+
+
+          Manual Release Trigger
+                    │
+                    ▼
+            GitHub Actions CD
+                    │
+                    ▼
+               Run Pytest
+                    │
+                    ▼
+                Test Pass
+                    │
+                    ▼
+          Create GitHub Release         
+```
+
+
 ```
 ## 🚀 API Automation Testing
 ### Test Coverage
@@ -196,7 +224,7 @@ The project uses pytest-html to generate a self-contained HTML test report.
 ### Run Tests
 
 ```bash
-pytest--html=reports/report.html --self-contained-html
+pytest --html=reports/report.html --self-contained-html
 
 ```
 The generated report contains:
@@ -217,6 +245,24 @@ The generated report contains:
 The project uses GitHub Actions to automatically execute the API test suite on every push and pull request targeting the main branch.
 
 ### CI Workflow
+
+The CI pipeline is defined in:
+
+```text
+.github/workflows/ci.yml
+
+```
+The workflow automatically:
+
+- Runs on push and pull request events targeting main
+- Sets up Python 3.12
+- Installs project dependencies
+- Executes the API test suite
+- Generates a self-contained HTML test report
+- Uploads the report as a GitHub Actions artifact
+- Preserves the report even when tests fail
+
+### CI Test Workflow
 ```text
        Push / Pull Request
                 │
@@ -246,16 +292,7 @@ The project uses GitHub Actions to automatically execute the API test suite on e
                 ▼
         Upload Report Artifact
 ```
-### Workflow file:
-```bash
-.github/workflows/ci.yml
-```
-### The CI workflow uses:
-```bash
-pytest --html=reports/report.html --self-contained-html
-```
-### to generate the HTML report.
---- 
+
 
 ## 📦 CI Test Report Artifact
 
@@ -287,6 +324,48 @@ The report can be downloaded from:
 GitHub → Actions → API Automation Tests → Artifacts
 ```
 The HTML report is uploaded with if: always() so that the report remains available even when one or more API tests fail.
+
+## 🚀 Continuous Delivery
+
+The project includes a GitHub Actions release workflow for automated GitHub Releases.
+
+### CD Workflow
+
+The release workflow is defined in:
+
+```text
+.github/workflows/release.yml
+```
+The release pipeline:
+
+- Is triggered manually through GitHub Actions
+- Sets up Python 3.12
+- Installs project dependencies
+- Runs the API test suite
+- Creates a GitHub Release when all tests pass
+
+### Release Flow
+```text
+Manual Release Trigger
+        │
+        ▼
+GitHub Actions CD
+        │
+        ▼
+Setup Python 3.12
+        │
+        ▼
+Install Dependencies
+        │
+        ▼
+   Run Pytest
+        │
+        ▼
+    Test Pass
+        │
+        ▼
+Create GitHub Release
+```
 
 ## ⚡ Performance Testing (Locust)
 
@@ -391,7 +470,7 @@ pytest --html=reports/report.html --self-contained-html
 | API Library |	Requests |	Requests |
 | HTML Report |　pytest-html | pytest-html |
 | Performance |	Locust | — |
-| CI/CD |— | GitHub Actions |
+| CI/CD |— | GitHub Actions CI/CD|
 ---
 
 
