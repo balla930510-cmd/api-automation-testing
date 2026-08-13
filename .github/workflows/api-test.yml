@@ -41,10 +41,12 @@ jobs:
         run: |
           mkdir -p reports
           pytest --html=reports/report.html --self-contained-html
-          
-      - name: Upload HTML Test Report
+
+      - name: Upload Test Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: api-test-report
-          path: reports/report.html
+          name: api-test-results
+          path: |
+            reports/report.html
+            flask.log
