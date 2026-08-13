@@ -1,11 +1,6 @@
-from api.api_client import APIClient
+def test_get_user(user_api_client):
 
-client = APIClient()
-
-
-def test_get_user():
-
-    response = client.get("/users/1")
+    response = user_api_client.get("/users/1")
 
     assert response.status_code == 200
 

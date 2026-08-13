@@ -1,37 +1,29 @@
 import requests
 
-from config.config import BASE_URL
-from config.config import HEADERS
-
 
 class APIClient:
 
+    def __init__(self, base_url):
+        self.base_url = base_url.rstrip("/")
+
     def get(self, endpoint):
-
         return requests.get(
-            BASE_URL + endpoint,
-            headers=HEADERS
+            f"{self.base_url}{endpoint}"
         )
 
-    def post(self, endpoint, payload):
-
+    def post(self, endpoint, json=None):
         return requests.post(
-            BASE_URL + endpoint,
-            json=payload,
-            headers=HEADERS
+            f"{self.base_url}{endpoint}",
+            json=json
         )
 
-    def put(self, endpoint, payload):
-
+    def put(self, endpoint, json=None):
         return requests.put(
-            BASE_URL + endpoint,
-            json=payload,
-            headers=HEADERS
+            f"{self.base_url}{endpoint}",
+            json=json
         )
 
     def delete(self, endpoint):
-
         return requests.delete(
-            BASE_URL + endpoint,
-            headers=HEADERS
+            f"{self.base_url}{endpoint}"
         )

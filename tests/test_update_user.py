@@ -1,18 +1,17 @@
-from api.api_client import APIClient
-from data.test_data import UPDATE_USER
+def test_update_user(user_api_client):
 
-client = APIClient()
+    payload = {
+        "name": "Updated User",
+        "job": "Senior QA"
+    }
 
-
-def test_update_user():
-
-    response = client.put(
+    response = user_api_client.put(
         "/users/1",
-        UPDATE_USER
+        json=payload
     )
 
     assert response.status_code == 200
 
     data = response.json()
 
-    assert data["job"] == UPDATE_USER["job"]
+    assert data["job"] == payload["job"]

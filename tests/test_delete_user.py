@@ -1,15 +1,10 @@
 import requests
 
 
-def test_delete_user():
+def test_delete_user(user_api_client):
 
-    url = "https://jsonplaceholder.typicode.com/users/1"
+    response = user_api_client.delete("/users/1")
 
-
-    response = requests.delete(url)
-
-
-    # 驗證 HTTP Status Code
     assert response.status_code == 200
 
 

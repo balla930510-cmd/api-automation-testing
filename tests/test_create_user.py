@@ -1,21 +1,13 @@
-from api.api_client import APIClient
-
-client = APIClient()
-
-
-def test_create_user():
+def test_create_user(user_api_client):
 
     payload = {
-
-        "name": "Alice",
-
-        "job": "QA Engineer"
-
+        "name": "Test User",
+        "job": "QA"
     }
 
-    response = client.post(
+    response = user_api_client.post(
         "/users",
-        payload
+        json=payload
     )
 
     assert response.status_code == 201

@@ -1,5 +1,4 @@
-requests
 pytest
+requests
+flask
 pytest-html
-locust
-allure-pytest
