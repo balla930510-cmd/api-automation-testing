@@ -328,7 +328,7 @@ and uploaded as a workflow artifact.
 
 ### Report Screenshot
 
-![Pytest HTML Report](reports/screenshot/report.png)
+![Pytest HTML Report](reports/screenshot/pytest_html_report.png)
 ---
 
 ## 🔄 Continuous Integration
