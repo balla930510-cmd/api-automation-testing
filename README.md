@@ -1,64 +1,137 @@
 # API Automation & Performance Testing
 
-![API Tests CI](https://github.com/balla930510-cmd/api-automation-testing/actions/workflows/ci.yml/badge.svg)
+![API Tests CI](https://github.com/balla930510-cmd/api-automation-testing/actions/workflows/api-test.yml/badge.svg)
 ![API Release](https://github.com/balla930510-cmd/api-automation-testing/actions/workflows/release.yml/badge.svg)
 
-This project demonstrates REST API automation testing and performance testing using Python. It covers functional validation with Pytest and load testing with Locust, showcasing a complete API testing workflow.
+> Python-based API Automation Testing Framework featuring functional testing,
+> Barcode Payment business scenarios, CI/CD automation, HTML test reporting,
+> and performance testing with Locust.
+
+This project demonstrates how to design, maintain, and execute an API automation
+framework using **Python, Pytest, Requests, Flask, GitHub Actions, and Locust**.
+
+## 🎯 Project Highlights
+
+This project demonstrates practical QA automation skills including:
+
+- API functional testing
+- Business scenario testing
+- Positive / Negative / Boundary testing
+- API response validation
+- Test data management
+- Pytest fixture and parameterization
+- API client abstraction
+- CI/CD integration
+- Automated HTML test reporting
+- Performance testing with Locust
+
+## 🧠 Skills Demonstrated
+
+- API Test Automation
+- Test Case Design
+- Business Logic Validation
+- Positive / Negative / Boundary Testing
+- Pytest Fixture Design
+- Parameterized Testing
+- Test Data Management
+- API Client Abstraction
+- CI/CD Integration
+- HTML Test Reporting
+- Performance Testing
+- Failure Analysis and Debugging
 
 ## Features
+
+### API Automation
 
 ✔ REST API Automation
 
 ✔ CRUD API Testing
 
-✔ Modular API Client
-
-✔ Pytest Fixtures
-
-✔ Test Data Management
+✔ Positive / Negative / Boundary Testing
 
 ✔ HTTP Status Code Validation
 
 ✔ Response Data Validation
 
-✔ HTML Test Report with pytest-html
+✔ Modular API Client
 
-✔ Performance Testing with Locust
+✔ Pytest Fixtures
+
+✔ Parameterized Testing
+
+✔ Test Data Management
+
+✔ Test Isolation
+
+### Business Scenario Testing
+
+✔ Barcode Payment API Testing
+
+✔ Barcode Scan Validation
+
+✔ Payment Validation
+
+✔ Duplicate Payment Validation
+
+✔ Payment Status Testing
+
+### Reporting & CI/CD
+
+✔ HTML Test Report with pytest-html
 
 ✔ GitHub Actions CI
 
-✔ HTML Test Report 
-
-✔ Automated GitHub Release
+✔ Automated Test Report Artifact
 
 ✔ CI/CD Workflow
 
+✔ Automated GitHub Release
+
 ✔ Git-based Version Control
 
+### Performance Testing
+
+✔ Performance Testing with Locust
+
+✔ Response Time Monitoring
+
+✔ Requests Per Second (RPS)
+
+✔ Failure Rate Monitoring
+
+✔ Concurrent User Load
+
 ## 🛠 Technologies
+
 | Category | Technology |
 |----------|------------|
 | Language | Python 3 |
-| Testing | Requests |
+| HTTP Client | Requests |
 | Test Framework | Pytest |
-| Test Architecture | API Client / Fixtures | 
+| Mock API | Flask |
+| Test Architecture | API Client / Fixtures |
+| Test Data | Pytest Fixtures / Parameterization |
 | Test Reporting | pytest-html |
 | Performance | Locust |
 | CI/CD | GitHub Actions |
-| Version Control | Git,GitHub |
+| Version Control | Git / GitHub |
 
 ## 📂 Project Structure
-
 
 ```text
 API_Testing/
 │
 ├── .github/
 │   └── workflows/
-│       ├── ci.yml
+│       ├── api-test.yml
 │       └── release.yml
+│
 ├── api/
 │   └── api_client.py
+│
+├── app/
+│   └── main.py
 │
 ├── config/
 │   └── config.py
@@ -67,16 +140,17 @@ API_Testing/
 │   └── test_data.py
 │
 ├── tests/
-│   ├── test_get_user.py
+│   ├── test_barcode_scan.py
 │   ├── test_create_user.py
-│   ├── test_update_user.py
 │   ├── test_delete_user.py
-│   └── test_parameter.py
+│   ├── test_get_user.py
+│   ├── test_parameter.py
+│   ├── test_payment.py
+│   ├── test_payment_status.py
+│   └── test_update_user.py
 │
 ├── reports/
-│   ├── screenshot/
-│   │   └── pytest_html_report.png
-│   └── ...
+│   └── screenshot/report.png
 │
 ├── screenshots/
 │   ├── locust_failure_rate.png
@@ -97,89 +171,108 @@ API_Testing/
 Generated reports and temporary files are excluded from source control through .gitignore.
 
 ## 🏗 Architecture
-###  API Automation
+
+### API Automation
+
 ```text
-                 Pytest Test Cases
-                         │
-                         ▼
-                API Client Requests
-                         │
-                         ▼
-                      REST API
-                         │
-                         ▼
-                Response Validation
-                         │
-                         ▼
-                     Assertions
-                         │
-                         ▼
-                     pytest-html
-                         │
-                         ▼
-                     HTML Report
-```
-### Performance Testing
+            Pytest Test Cases
+                     │
+                     ▼
+             Pytest Fixtures
+                     │
+                     ▼
+                API Client
+                     │
+        ┌────────────┴────────────┐
+        ▼                         ▼
+User REST API                 Flask Mock 
+                                  │
+                                  ▼
+                          Barcode Payment API
+                                  │
+                                  ▼
+                          Response Validation
+                                  │
+                                  ▼
+                              Assertions
+                                  │
+                                  ▼
+                             pytest-html
+                                  │
+                                  ▼
+                              HTML Report
+ ```                                
+## 💳 Barcode Payment Testing
+
+The project includes a Flask-based Mock Barcode Payment API to simulate
+real-world payment business scenarios and validate payment-related business logic.
+
+### Payment Flow
+
 ```text
-                 Locust Test Script
-                         │
-                         ▼
-                      REST API
-                         │
-                         ▼
-                Concurrent Requests
-                         │
-                         ▼
-              Performance Measurements
-                         │
-              ┌──────────┼──────────┐
-              ▼          ▼          ▼
-             RPS    Response Time   Failures
+Barcode Scan
+     │
+     ▼
+Validate Barcode
+     │
+     ├── Invalid ───────► FAILED
+     │
+     ▼
+Payment Request
+     │
+     ▼
+Validate Amount
+     │
+     ├── Invalid ───────► FAILED
+     │
+     ▼
+Check Barcode Status
+     │
+     ├── Already Used ──► FAILED
+     │
+     ▼
+Create Payment
+     │
+     ▼
+  SUCCESS
+     │
+     ▼
+Transaction ID
 ```
+## Test Scenarios
+| Scenario | Expected Result |
+| -------- | --------------- |
+| Valid barcode | SUCCESS |
+| Invalid barcode | INVALID_BARCODE |
+| Expired barcode | BARCODE_EXPIRED |
+| Already used barcode | BARCODE_ALREADY_USED |
+| Amount = 0 | INVALID_AMOUNT |
+| Negative amount | INVALID_AMOUNT |
+| Invalid amount type | INVALID_AMOUNT |
+| Missing amount | AMOUNT_REQUIRED |
+| Duplicate payment | BARCODE_ALREADY_USED |
+| Payment status lookup | SUCCESS / NOT_FOUND |
 
-### CI/CD Pipeline
-```text                            
-            Push / Pull Request          
-                    │
-                    ▼
-             GitHub Actions CI
-                    │
-                    ▼
-               Setup Python
-                    │
-                    ▼
-           Install Dependencies
-                    │
-                    ▼
-                Run Pytest
-                    │
-        ┌───────────────────────┐
-        ▼                       ▼
-    Test Pass               Test Fail
-        │                       │
-        ▼                       ▼
-Generate HTML Report       Stop Pipeline
-        │
-        ▼
-Upload Report Artifact
+### Test Design Techniques
 
+The test suite covers:
 
+- Positive testing
+- Negative testing
+- Boundary value testing
+- Invalid input validation
+- Missing field validation
+- Business rule validation
+- Duplicate transaction validation
+- HTTP status code validation
+- Response body validation
 
-          Manual Release Trigger
-                    │
-                    ▼
-            GitHub Actions CD
-                    │
-                    ▼
-               Run Pytest
-                    │
-                    ▼
-                Test Pass
-                    │
-                    ▼
-          Create GitHub Release         
-```
+Examples include validating zero and negative payment amounts,
+invalid barcode values, expired barcodes, duplicate payments,
+and missing required fields.
 
+Pytest parameterization is used to execute multiple test scenarios
+with different input data while reducing duplicated test code.
 
 
 ## 🚀 API Automation Testing
@@ -205,24 +298,18 @@ The API automation suite currently covers the following operations:
 | PUT | /api/users/2 | Update user |
 | DELETE | /api/users/2 | Delete user |
 ---
+## ✅ Test Results
 
-## ✅ Test Result Summary
-
-| Item | Result |
-|------|--------|
-| Total Tests | 7 |
-| Passed | 7 |
+| Metric | Result |
+|--------|--------|
+| Total Tests | 21 |
+| Passed | 21 |
 | Failed | 0 |
-| Success Rate | 100% |
-| Execution Time | ~7.5 sec |
-
-> Test execution time may vary depending on API response time and network conditions.
+| Pass Rate | 100% |
 
 ## 📄 HTML Test Report
 
 The project uses pytest-html to generate a self-contained HTML test report.
-
-### Run Tests
 
 ```bash
 pytest --html=reports/report.html --self-contained-html
@@ -236,28 +323,35 @@ The generated report contains:
 - Test execution duration
 - Test case details
 
+The report is also automatically generated during GitHub Actions CI
+and uploaded as a workflow artifact.
+
 ### Report Screenshot
 
-![Pytest HTML Report](reports/screenshot/pytest_html_report.png)
+![Pytest HTML Report](reports/screenshot/report.png)
 ---
+
 ## 🔄 Continuous Integration
 
-The project uses GitHub Actions to automatically execute the API test suite on every push and pull request targeting the main branch.
+The project uses GitHub Actions to automatically execute the API test
+suite on every push and pull request targeting the `main` branch.
 
 ### CI Workflow
 
-The CI pipeline is defined in:
+The workflow is defined in:
 
 ```text
-.github/workflows/ci.yml
+.github/workflows/api-test.yml
+
 ```
 The workflow automatically:
 
-- Runs on push and pull request events targeting main
+- Checks out the repository
 - Sets up Python 3.12
 - Installs project dependencies
-- Executes the API test suite
-- Generates a self-contained HTML test report
+- Starts the Flask Mock API
+- Runs the Pytest test suite
+- Generates a self-contained HTML test   report
 - Uploads the report as a GitHub Actions artifact
 - Preserves the report even when tests fail
 
@@ -266,32 +360,29 @@ The workflow automatically:
        Push / Pull Request
                 │
                 ▼
-       Checkout Repository
+         GitHub Actions CI
                 │
                 ▼
-        Setup Python 3.12
+        Checkout Repository
+                │
+                ▼
+         Setup Python 3.12
                 │
                 ▼
        Install Dependencies
                 │
                 ▼
-     Create Reports Directory
+       Start Flask Mock API
                 │
                 ▼
             Run Pytest
-                |
-        ┌───────────────┐
-        ▼               ▼
-    Test Pass       Test Fail
-        │               │
-        └───────┬───────┘
-                ▼
-        Generate HTML Report
                 │
                 ▼
-        Upload Report Artifact
+       Generate HTML Report
+                │
+                ▼
+      Upload Report Artifact
 ```
-
 
 ## 📦 CI Test Report Artifact
 
@@ -312,17 +403,6 @@ The generated HTML report is uploaded to GitHub Actions as a workflow artifact.
            api-test-report
 ```
 The artifact allows test results to be inspected after the CI workflow completes without committing generated reports to the repository.
-
-###  Artifact
-```text
-api-test-report
-└── report.html
-```
-The report can be downloaded from:
-```
-GitHub → Actions → API Automation Tests → Artifacts
-```
-The HTML report is uploaded with if: always() so that the report remains available even when one or more API tests fail.
 
 ## 🚀 Continuous Delivery
 
@@ -368,6 +448,10 @@ Create GitHub Release
 
 ## ⚡ Performance Testing (Locust)
 
+Locust is used to evaluate the performance of a public REST API,
+while the Flask Mock API is used for functional and business scenario testing.
+
+
 ### Target API
 
 ```
@@ -375,6 +459,11 @@ https://reqres.in
 ```
 
 ### Test Scenario
+
+The performance test evaluates API response time,
+throughput, failure rate, and behavior under concurrent load.
+
+Target endpoints:
 
 - GET /api/users?page=2
 - POST /api/users
@@ -440,7 +529,7 @@ git clone https://github.com/balla930510-cmd/api-automation-testing.git
 ```
 2. Navigate to the project
 ```bash
-cd API_Testing
+cd api-automation-testing
 ```
 3. Install dependencies
 ```bash
@@ -448,28 +537,44 @@ pip install -r requirements.txt
 ```
 ## ▶️ Run Tests
 
-Run the complete API test suite:
+### 1. Start the Mock API
+
+In Terminal 1:
+
 ```bash
-pytest
+python app/main.py
 ```
-Run tests with verbose output:
+The API will be available at:
+
+```text
+http://127.0.0.1:5000
+```
+### 2. Run the test suite
+In terminal 2:
 ```bash
 pytest -v
 ```
-Generate HTML test report:
+
+### Run all tests
+```bash
+pytest
+```
+
+### Generate HTML test report:
 ```bash
 pytest --html=reports/report.html --self-contained-html
 ```
 ## 💻 Test Environment
+
 | Item | Local | CI |
-| ---- | ----- | -- |
+|------|-------|----|
 | OS | Windows 11 | Ubuntu |
 | Python | 3.13.9 | 3.12 |
-| Test Framework | Pytest |	Pytest |
-| API Library |	Requests |	Requests |
-| HTML Report |　pytest-html | pytest-html |
-| Performance |	Locust | — |
-| CI/CD |— | GitHub Actions CI/CD|
+| Test Framework | Pytest | Pytest |
+| API Library | Requests | Requests |
+| HTML Report | pytest-html | pytest-html |
+| Performance | Locust | — |
+| CI/CD | — | GitHub Actions |
 ---
 
 
@@ -477,10 +582,9 @@ pytest --html=reports/report.html --self-contained-html
 
 Bai, Chen-Liang
 
-Department of Mathematics
-Information Mathematics Program
-
+Information Mathematics Program  
 Fu Jen Catholic University
+
 GitHub:
 https://github.com/balla930510-cmd/api-automation-testing
 
